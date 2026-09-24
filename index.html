@@ -1,109 +1,158 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FLIRTKIN</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLIRTKIN - Kinshasa Dating</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{background:#000;color:#fff;overflow:hidden}
-#splash{position:fixed;inset:0;z-index:9999;background:#020617 url('splash.jpg') center/cover no-repeat;display:flex;flex-direction:column;align-items:center;justify-content:end;padding-bottom:80px;animation:fadeOut 1s 3.5s forwards}
-#splash h1{font-size:48px;letter-spacing:8px;color:#60a5fa;text-shadow:0 0 25px #3b82f6}
-#splash p{color:#fff;margin-top:10px}
-@keyframes fadeOut{to{opacity:0;visibility:hidden}}
-.header{background:#020617;border-bottom:2px solid #1e3a8a;padding:12px;text-align:center;position:fixed;top:0;width:100%;z-index:100;display:flex;justify-content:space-between;align-items:center}
-.header h1{letter-spacing:6px;color:#60a5fa;font-size:20px}
-.nav{position:fixed;bottom:0;width:100%;background:#020617;border-top:1px solid #1e3a8a;display:flex;justify-content:space-around;padding:8px 0;z-index:100}
-.nav button{background:none;border:none;color:#64748b;font-size:20px;padding:8px}
+body{background:#000;color:#fff}
+#splash{position:fixed;inset:0;z-index:9999;background:#000;display:flex;align-items:center;justify-content:center;flex-direction:column}
+#splash img{width:100%;height:100%;object-fit:cover;opacity:0.6;position:absolute}
+#splash.txt{position:relative;z-index:2;text-align:center}
+#splash h1{font-size:52px;letter-spacing:8px;color:#60a5fa;text-shadow:0 0 30px #3b82f6}
+.auth{position:fixed;inset:0;z-index:1000;background:#020617;display:none;padding:20px;overflow-y:auto}
+.auth.active{display:block}
+.box{background:#0f172a;border:1px solid #1e3a8a;border-radius:16px;padding:20px;margin:15px 0}
+input,select{width:100%;background:#000;border:1px solid #1e3a8a;border-radius:10px;padding:13px;color:#fff;margin:7px 0}
+.btn{width:100%;padding:14px;border:none;border-radius:12px;background:linear-gradient(90deg,#1e3a8a,#3b82f6);color:#fff;font-weight:bold;margin-top:10px}
+.header{position:fixed;top:0;width:100%;background:#020617;border-bottom:2px solid #1e3a8a;padding:10px 15px;display:flex;justify-content:space-between;align-items:center;z-index:500}
+.feed{padding:70px 0 70px;max-width:500px;margin:auto}
+.post{background:#0f172a;border:1px solid #1e293b;border-radius:15px;margin:12px;overflow:hidden}
+.post-top{display:flex;gap:10px;padding:12px;align-items:center}
+.post-top img{width:45px;height:45px;border-radius:50%;border:2px solid #3b82f6}
+.post img.main{width:100%;height:420px;object-fit:cover}
+.post-actions{display:flex;justify-content:space-around;padding:10px;border-top:1px solid #1e293b}
+.post-actions button{background:none;border:none;color:#94a3b8;font-size:14px}
+.post-actions button.liked{color:#ef4444}
+.nav{position:fixed;bottom:0;width:100%;background:#020617;border-top:1px solid #1e3a8a;display:flex;justify-content:space-around;padding:10px 0;z-index:500}
+.nav button{background:none;border:none;color:#64748b;font-size:20px}
 .nav button.active{color:#60a5fa}
-.page{display:none;padding:70px 15px 80px;height:100vh;overflow-y:auto}
-.page.active{display:block}
-.card{background:#0f172a;border:1px solid #1e3a8a;border-radius:20px;overflow:hidden;margin:10px}
-.card img{width:100%;height:380px;object-fit:cover}
-.btns{display:flex;gap:15px;padding:15px;justify-content:center}
-.btn{width:65px;height:65px;border-radius:50%;border:none;font-size:28px}
-.no{background:#1e293b;color:#ef4444}
-.yes{background:linear-gradient(135deg,#1e3a8a,#3b82f6);color:#fff;box-shadow:0 0 15px #3b82f6}
-.chat-item{display:flex;align-items:center;gap:12px;padding:14px;border-bottom:1px solid #1e293b}
-.setting{background:#0f172a;border:1px solid #1e293b;border-radius:12px;padding:12px;margin:8px 0;display:flex;justify-content:space-between}
-select.lang{width:auto;background:#000;color:#60a5fa;border:1px solid #1e3a8a;border-radius:20px;padding:5px 12px}
 </style>
 </head>
 <body>
 
-<!-- SPLASH AVEC OMBRE -->
-<div id="splash" style="background-image:url('https://i.imgur.com/8Km9tLL.png'); background: radial-gradient(circle at center, #1e3a8a 0%, #020617 70%), url('');">
-  <div style="position:absolute;inset:0;background:url('') center/contain no-repeat; opacity:0.9"></div>
-  <img src="" id="splashImg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.85">
-  <h1 style="position:relative">FLIRTKIN</h1>
-  <p style="position:relative" id="splashText">Trouve ton âme sœur à Kin</p>
+<!-- SPLASH OMBRE SEXY -->
+<div id="splash">
+<img src="https://i.ibb.co/8zR9Q4y/kiss-shadow.png" onerror="this.style.background='radial-gradient(circle,#1e3a8a,#000)'">
+<div class="txt">
+<h1>FLIRTKIN</h1>
+<p id="splashT">100% Kinshasa - Trouve l'amour</p>
+<p style="margin-top:20px;color:#60a5fa">Chargement...</p>
+</div>
 </div>
 
+<!-- AUTH OBLIGATOIRE -->
+<div id="authPage" class="auth">
+<h2 style="text-align:center;color:#60a5fa;margin:20px 0" id="authTitle">Crée ton compte FLIRTKIN</h2>
+<div class="box">
+<input id="aName" placeholder="Nom complet">
+<input id="aAge" type="number" placeholder="Age">
+<select id="aSexe"><option>Homme</option><option>Femme</option></select>
+<select id="aCommune"><option>Gombe</option><option>Bandal</option><option>Ngaliema</option><option>Limete</option><option>Kalamu</option><option>Masina</option><option>Lingwala</option><option>Kinshasa</option></select>
+<select id="aLang"><option value="fr">🇫🇷 Français</option><option value="ln">🇨🇩 Lingala</option><option value="en">🇬🇧 English</option><option value="sw">🇹🇿 Swahili</option></select>
+<input id="aPhone" placeholder="WhatsApp +243...">
+<input id="aPass" type="password" placeholder="Mot de passe">
+<textarea id="aBio" placeholder="Bio: Qui es-tu?" style="width:100%;background:#000;border:1px solid #1e3a8a;border-radius:10px;padding:10px;color:#fff"></textarea>
+<button class="btn" onclick="register()" id="btnCreate">CRÉER MON COMPTE 🔥</button>
+<p style="text-align:center;margin-top:15px;color:#64748b">Déjà compte? <b onclick="showLoginForm()" style="color:#60a5fa">Se connecter</b></p>
+</div>
+</div>
+
+<div id="loginPage" class="auth">
+<h2 style="text-align:center;color:#60a5fa;margin:40px 0">Connexion</h2>
+<div class="box">
+<input id="lPhone" placeholder="WhatsApp">
+<input id="lPass" type="password" placeholder="Mot de passe">
+<button class="btn" onclick="login()">SE CONNECTER</button>
+<p style="text-align:center;margin-top:15px;color:#64748b" onclick="showRegisterForm()">← Créer un compte</p>
+</div>
+</div>
+
+<!-- APP PRINCIPALE FACEBOOK STYLE -->
+<div id="app" style="display:none">
 <div class="header">
-  <h1>FLIRTKIN</h1>
-  <select class="lang" id="langSelect" onchange="changeLang(this.value)">
-    <option value="fr">🇫🇷 Français</option>
-    <option value="ln">🇨🇩 Lingala</option>
-    <option value="en">🇬🇧 English</option>
-    <option value="sw">🇹🇿 Swahili</option>
-  </select>
-</div>
-
-<div id="p1" class="page active">
-<div class="card" id="mainCard">
-<img id="cImg" src="https://i.pravatar.cc/400?img=5">
-<div style="padding:15px">
-<h2 id="cName">Grâce, 22 • Gombe</h2>
-<p id="cBio" style="color:#94a3b8;margin-top:6px">Mwana ya Gombe...</p>
-</div>
-<div class="btns">
-<button class="btn no" onclick="nextProf()">✕</button>
-<button class="btn yes" onclick="like()">❤</button>
-</div>
+<h1 style="color:#60a5fa;letter-spacing:4px">FLIRTKIN</h1>
+<div style="display:flex;gap:10px;align-items:center">
+<span id="myNameTop" style="font-size:12px"></span>
+<select id="langTop" onchange="setLang(this.value)" style="background:#000;color:#60a5fa;border:1px solid #1e3a8a;border-radius:15px;padding:4px"><option value="fr">FR</option><option value="ln">LN</option><option value="en">EN</option><option value="sw">SW</option></select>
 </div>
 </div>
 
-<div id="p2" class="page"><h3 style="color:#60a5fa;margin:10px" id="tMatch">Tes Matches ❤️</h3><div id="matchList"></div></div>
-<div id="p3" class="page"><div id="chatBox" style="height:60vh;background:#020617;border:1px solid #1e3a8a;border-radius:12px;padding:10px;overflow-y:auto"></div><div style="display:flex;gap:8px;margin-top:10px"><input id="msgInput" placeholder="Message..." style="flex:1"><button onclick="sendMsg()" style="background:#3b82f6;border:none;border-radius:10px;padding:12px 18px">➤</button></div></div>
-<div id="p4" class="page"><h3 style="color:#60a5fa" id="tParam">Paramètres</h3><div id="settings"></div></div>
+<div class="feed" id="feed"></div>
 
 <div class="nav">
-<button id="n1" class="active" onclick="showP(1)">🔥</button>
-<button id="n2" onclick="showP(2)">❤️</button>
-<button id="n3" onclick="showP(3)">💬</button>
-<button id="n4" onclick="showP(4)">⚙️</button>
+<button class="active">🏠</button>
+<button onclick="alert('Messages bientôt')">💬</button>
+<button onclick="alert('Matches bientôt')">❤️</button>
+<button onclick="logout()">⚙️</button>
+</div>
 </div>
 
 <script>
-// DICTIONNAIRE 4 LANGUES
-const LANG={
- fr:{splash:"Trouve ton âme sœur à Kin",match:"Tes Matches",param:"Paramètres",nomsg:"Pas encore de Match",like:"MATCH avec",online:"En ligne • Match"},
- ln:{splash:"Luka bolingo na yo na Kin",match:"Ba Match na yo",param:"Parametre",nomsg:"Nanou Match te",like:"MATCH na",online:"Azali en ligne"},
- en:{splash:"Find your soulmate in Kin",match:"Your Matches",param:"Settings",nomsg:"No Match yet",like:"MATCH with",online:"Online • Match"},
- sw:{splash:"Pata mpenzi wako Kin",match:"Mechi zako",param:"Mipangilio",nomsg:"Bado hakuna Match",like:"MATCH na",online:"Mtandaoni"}
+const TR={
+ fr:{splash:"100% Kinshasa - Trouve l'amour",create:"Crée ton compte FLIRTKIN",btnCreate:"CRÉER MON COMPTE 🔥",bio:"Bio: Qui es-tu?",like:"J'aime",comment:"Commenter",whatsapp:"WhatsApp",cherche:"cherche l'amour à"},
+ ln:{splash:"100% Kinshasa - Luka bolingo",create:"Sala compte na yo FLIRTKIN",btnCreate:"SALA COMPTE NA NGAI 🔥",bio:"Bio: Nani yo?",like:"Nalingi",comment:"Commentaire",whatsapp:"WhatsApp",cherche:"azali koluka bolingo na"},
+ en:{splash:"100% Kinshasa - Find love",create:"Create your FLIRTKIN account",btnCreate:"CREATE MY ACCOUNT 🔥",bio:"Bio: Who are you?",like:"Like",comment:"Comment",whatsapp:"WhatsApp",cherche:"is looking for love in"},
+ sw:{splash:"100% Kinshasa - Pata upendo",create:"Fungua akaunti yako FLIRTKIN",btnCreate:"FUNGUA AKAUNTI 🔥",bio:"Bio: Wewe ni nani?",like:"Penda",comment:"Maoni",whatsapp:"WhatsApp",cherche:"anatafuta upendo huko"}
 }
-let curLang='fr';
-function changeLang(l){curLang=l;localStorage.setItem('flirtkin_lang',l);applyLang()}
-function applyLang(){document.getElementById('splashText').innerText=LANG[curLang].splash;document.getElementById('tMatch').innerText=LANG[curLang].match;document.getElementById('tParam').innerText=LANG[curLang].param;renderMatches()}
+let lang='fr';
+function setLang(l){lang=l;localStorage.setItem('flirtkin_lang',l);applyLang()}
+function applyLang(){let t=TR[lang];document.getElementById('splashT').innerText=t.splash;document.getElementById('authTitle').innerText=t.create;document.getElementById('btnCreate').innerText=t.btnCreate;document.getElementById('aBio').placeholder=t.bio;renderFeed()}
 
-const profils=[
-{name:"Grâce, 22 • Gombe",bio:{fr:"Mwana ya Gombe, j'aime sortir",ln:"Mwana ya Gombe, nalingi kobima",en:"Girl from Gombe, love going out",sw:"Msichana wa Gombe, napenda kutoka"},img:"https://i.pravatar.cc/400?img=5",wa:"243820000001"},
-{name:"Deborah, 21 • Bandal",bio:{fr:"Étudiante UPN, sincère",ln:"Moyekoli na UPN, ya solo",en:"UPN student, sincere",sw:"Mwanafunzi UPN, mwaminifu"},img:"https://i.pravatar.cc/400?img=9",wa:"243820000002"},
-{name:"Sarah, 23 • Ngaliema",bio:{fr:"Entrepreneuse, pas de blague",ln:"Entrepreneuse, kosakana te",en:"Entrepreneur, no jokes",sw:"Mjasiriamali, hakuna mchezo"},img:"https://i.pravatar.cc/400?img=32",wa:"243820000003"}
+const gens=[
+ {name:"Grâce",age:22,com:"Gombe",img:"https://i.pravatar.cc/400?img=5",bio:"Mwana Gombe, naza cool"},
+ {name:"Deborah",age:21,com:"Bandal",img:"https://i.pravatar.cc/400?img=9",bio:"Étudiante UPN, j'aime la musique"},
+ {name:"Sarah",age:23,com:"Ngaliema",img:"https://i.pravatar.cc/400?img=32",bio:"Entrepreneuse, pas de temps à perdre"},
+ {name:"Miriam",age:20,com:"Limete",img:"https://i.pravatar.cc/400?img=26",bio:"Danseuse, rumba forever"},
+ {name:"Joel",age:24,com:"Gombe",img:"https://i.pravatar.cc/400?img=15",bio:"Boss à Silikin, respect"},
+ {name:"Exaucé",age:25,com:"Kalamu",img:"https://i.pravatar.cc/400?img=12",bio:"Footballeur, cherche femme sérieuse"},
 ];
-let idx=0;let matches=JSON.parse(localStorage.getItem('flirtkin_matches')||'[]');
-function showP(n){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));document.getElementById('p'+n).classList.add('active');document.getElementById('n'+n).classList.add('active');if(n==2)renderMatches()}
-function nextProf(){idx=(idx+1)%profils.length;renderCard()}
-function renderCard(){let p=profils[idx];cImg.src=p.img;cName.innerText=p.name;cBio.innerText=p.bio[curLang]||p.bio.fr}
-function like(){let p=profils[idx];if(!matches.find(m=>m.name==p.name)){matches.push(p);localStorage.setItem('flirtkin_matches',JSON.stringify(matches));alert('🔥 '+LANG[curLang].like+' '+p.name)}nextProf()}
-function renderMatches(){matchList.innerHTML=matches.length?matches.map((m,i)=>`<div class="chat-item" onclick="openChat(${i})"><img src="${m.img}" style="width:55px;height:55px;border-radius:50%"><div><b>${m.name}</b><br><small style="color:#22c55e">● ${LANG[curLang].online}</small></div></div>`).join(''):`<p style="color:#64748b;text-align:center;margin-top:50px">${LANG[curLang].nomsg}</p>`}
-let currentChat=null;function openChat(i){currentChat=matches[i];chatBox.innerHTML=`<div style="background:#1e3a8a;padding:8px 12px;border-radius:12px;margin:5px;max-width:80%">Salut 😊</div>`;showP(3)}
-function sendMsg(){let t=msgInput.value;if(!t||!currentChat)return;chatBox.innerHTML+=`<div style="background:#3b82f6;padding:8px 12px;border-radius:12px;margin:5px;margin-left:auto;max-width:80%">${t} ✓✓</div>`;msgInput.value='';setTimeout(()=>{chatBox.innerHTML+=`<button onclick="window.open('https://wa.me/${currentChat.wa}','_blank')" style="margin:10px;padding:8px 15px;background:#22c55e;border:none;border-radius:20px;color:#fff">📱 WhatsApp</button>`;chatBox.scrollTop=chatBox.scrollHeight},600)}
-// Init
-document.getElementById('splashImg').src = "/mnt/data/image_20260924_171819.webp"; // temporaire
-let saved=localStorage.getItem('flirtkin_lang');if(saved){curLang=saved;langSelect.value=saved;applyLang()}
-setTimeout(()=>{splash.style.display='none'},3800);
-renderCard();
+
+function renderFeed(){
+ let html='';
+ gens.forEach((p,i)=>{
+  html+=`<div class="post">
+   <div class="post-top"><img src="${p.img}"><div><b>${p.name}, ${p.age}</b><br><small style="color:#64748b">${p.com} • ${TR[lang].cherche} ${p.com}</small></div><span style="margin-left:auto">...</span></div>
+   <img class="main" src="${p.img}">
+   <div style="padding:12px"><p>${p.bio}</p></div>
+   <div class="post-actions">
+    <button onclick="this.classList.toggle('liked');this.innerText=this.classList.contains('liked')?'❤️ '+TR[lang].like:'🤍 '+TR[lang].like">🤍 ${TR[lang].like}</button>
+    <button>💬 ${TR[lang].comment}</button>
+    <button onclick="window.open('https://wa.me/24382000000${i}?text=Salut ${p.name} c est via FLIRTKIN','_blank')">📱 ${TR[lang].whatsapp}</button>
+   </div>
+  </div>`;
+ });
+ document.getElementById('feed').innerHTML=html;
+}
+
+function register(){
+ let u={name:aName.value,age:aAge.value,sexe:aSexe.value,com:aCommune.value,phone:aPhone.value,pass:aPass.value,bio:aBio.value,lang:aLang.value};
+ if(!u.name||!u.phone||!u.pass)return alert('Remplis tout BAJI!');
+ localStorage.setItem('flirtkin_user',JSON.stringify(u));
+ localStorage.setItem('flirtkin_logged','true');
+ localStorage.setItem('flirtkin_lang',u.lang);
+ lang=u.lang;
+ location.reload();
+}
+function login(){
+ let s=JSON.parse(localStorage.getItem('flirtkin_user')||'null');
+ if(!s)return alert('Crée un compte d abord');
+ if(lPhone.value==s.phone && lPass.value==s.pass){localStorage.setItem('flirtkin_logged','true');location.reload()}else alert('Faux numéro / mot de passe');
+}
+function showLoginForm(){authPage.classList.remove('active');loginPage.classList.add('active')}
+function showRegisterForm(){loginPage.classList.remove('active');authPage.classList.add('active')}
+function logout(){localStorage.removeItem('flirtkin_logged');location.reload()}
+
+// START
+setTimeout(()=>{splash.style.display='none';
+ let logged=localStorage.getItem('flirtkin_logged');
+ let savedLang=localStorage.getItem('flirtkin_lang')||'fr'; lang=savedLang; langTop.value=savedLang; aLang.value=savedLang; applyLang();
+ if(logged=='true'){
+   let u=JSON.parse(localStorage.getItem('flirtkin_user')); myNameTop.innerText=u.name; app.style.display='block'; renderFeed();
+ }else{
+   authPage.classList.add('active');
+ }
+},2500);
 </script>
 </body>
 </html>
